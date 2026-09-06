@@ -6,17 +6,17 @@ sections:
   - block: hero
     content:
       title: |
-        实验室科研团队
+        先进集成电路材料与类脑芯片课题组
         材料与光电信息研究
       image:
         filename: welcome.jpg
       text: |
         <br>
-        专注于先进材料、光电器件与智能感知等方向的科学研究与人才培养。
+        专注于先进材料、光电器件、类脑芯片与智能感知等方向的科学研究与人才培养。
 
   - block: collection
     content:
-      title: 新闻动态
+      title: 课题组动态
       count: 5
       filters:
         author: ''
@@ -33,7 +33,7 @@ sections:
 
   - block: markdown
     content:
-      title: 实验室风采
+      title: 团队建设
       text: |
         欢迎了解我们的科研工作、团队建设与学术活动。
     design:
@@ -53,7 +53,7 @@ sections:
 
   - block: collection
     content:
-      title: 科研成果
+      title: 研究成果
       count: 5
       filters:
         folders:
@@ -65,6 +65,7 @@ sections:
 
   - block: markdown
     content:
+      title: 首页
       text: |
         {{% cta cta_link="./people/" cta_text="查看团队成员 →" %}}
     design:
