@@ -1,0 +1,110 @@
+html.horizontal-home,
+body.horizontal-home {
+  width: 100%;
+  height: 100%;
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+
+.horizontal-home main {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+.horizontal-home-track {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100vh;
+  min-height: 100vh;
+  transform: translate3d(0, 0, 0);
+  transition: transform 700ms cubic-bezier(.22, .61, .36, 1);
+  will-change: transform;
+}
+
+.horizontal-home-slide {
+  flex: 0 0 100vw;
+  width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden auto;
+  scroll-behavior: smooth;
+}
+
+.horizontal-home-slide .container,
+.horizontal-home-slide .container-fluid,
+.horizontal-home-slide .home-section-bg {
+  min-height: 100%;
+}
+
+.horizontal-home-slide .container,
+.horizontal-home-slide .container-fluid {
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+}
+
+.page-header {
+  position: fixed !important;
+  inset: 0 0 auto;
+  z-index: 10000;
+  width: 100vw;
+}
+
+.horizontal-home-controls {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  z-index: 10010;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.horizontal-home-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .55);
+  cursor: pointer;
+  transition: width .25s ease, background .25s ease;
+}
+
+.horizontal-home-dot.is-active {
+  width: 28px;
+  background: #fff;
+}
+
+.horizontal-home-arrow {
+  position: fixed;
+  top: 50%;
+  z-index: 10010;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .28);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.horizontal-home-arrow:hover { background: rgba(0, 0, 0, .55); }
+.horizontal-home-arrow--previous { left: 20px; }
+.horizontal-home-arrow--next { right: 20px; }
+.horizontal-home-arrow:disabled { cursor: default; opacity: .25; }
+
+@media (max-width: 768px) {
+  .horizontal-home-arrow { display: none; }
+  .horizontal-home-controls { bottom: 14px; }
+  .horizontal-home-slide .container,
+  .horizontal-home-slide .container-fluid { padding: 5rem 1.25rem 3rem; }
+}
