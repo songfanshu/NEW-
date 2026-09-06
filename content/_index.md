@@ -1,5 +1,3 @@
----
-# Leave the homepage title empty to use the site title
 title:
 date: 2022-10-24
 type: landing
@@ -8,20 +6,17 @@ sections:
   - block: hero
     content:
       title: |
-        Wowchemy
-        Research Group
+        实验室科研团队
+        材料与光电信息研究
       image:
         filename: welcome.jpg
       text: |
         <br>
-        
-        The **Wowchemy Research Group** has been a center of excellence for Artificial Intelligence research, teaching, and practice since its founding in 2016.
-  
+        专注于先进材料、光电器件与智能感知等方向的科学研究与人才培养。
+
   - block: collection
     content:
-      title: Latest News
-      subtitle:
-      text:
+      title: 新闻动态
       count: 5
       filters:
         author: ''
@@ -35,16 +30,16 @@ sections:
     design:
       view: card
       columns: '1'
-  
+
   - block: markdown
     content:
-      title:
-      subtitle: ''
-      text:
+      title: 实验室风采
+      text: |
+        欢迎了解我们的科研工作、团队建设与学术活动。
     design:
       columns: '1'
       background:
-        image: 
+        image:
           filename: coders.jpg
           filters:
             brightness: 1
@@ -58,8 +53,7 @@ sections:
 
   - block: collection
     content:
-      title: Latest Preprints
-      text: ""
+      title: 科研成果
       count: 5
       filters:
         folders:
@@ -71,10 +65,7 @@ sections:
 
   - block: markdown
     content:
-      title:
-      subtitle:
       text: |
-        {{% cta cta_link="./people/" cta_text="Meet the team →" %}}
+        {{% cta cta_link="./people/" cta_text="查看团队成员 →" %}}
     design:
       columns: '1'
----
