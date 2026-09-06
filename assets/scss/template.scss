@@ -1,161 +1,103 @@
-// Make page header alignment consistent with widget page header alignment
-.universal-wrapper h1 {
-  text-align: center;
-}
-
-// Center the CTA shortcode button
-.cta-group {
-  justify-content: center;
-}
+// 基础排版
+.universal-wrapper h1 { text-align: center; }
+.cta-group { justify-content: center; }
 
 /* =========================================================
-   首页横向切换
-   说明：本文件位于 assets/scss/template.scss，会被 Hugo Blox
-   自动编译加载。之前单独放在 assets/css/horizontal-home.css
-   并不会自动进入最终页面，因此浏览器实际上没有执行横向样式。
+   首页：100vh 原生 CSS Scroll Snap 全屏横向 Slider
    ========================================================= */
-html.horizontal-home,
-html.horizontal-home body,
-body.horizontal-home #page,
-body.horizontal-home main {
-  width: 100% !important;
-  height: 100% !important;
-  min-width: 100% !important;
-  min-height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  overscroll-behavior: none !important;
-}
-
-body.horizontal-home main {
-  position: relative !important;
-  overflow: hidden !important;
-}
+html.horizontal-home, body.horizontal-home { width:100%; height:100%; overflow:hidden !important; }
+body.horizontal-home #page, body.horizontal-home main { width:100vw !important; height:100vh !important; margin:0 !important; padding:0 !important; overflow:hidden !important; }
 
 .horizontal-home-track {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: stretch !important;
-  width: max-content !important;
-  height: 100vh !important;
-  min-height: 100vh !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  transform: translate3d(0, 0, 0);
-  transition: transform 700ms cubic-bezier(.22, .61, .36, 1);
-  will-change: transform;
+  display:flex !important;
+  flex-flow:row nowrap !important;
+  width:100vw !important;
+  height:100vh !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  scroll-snap-type:x mandatory !important;
+  scroll-behavior:smooth !important;
+  overscroll-behavior-x:contain !important;
+  -webkit-overflow-scrolling:touch !important;
+  scrollbar-width:none !important;
+  cursor:grab;
 }
+.horizontal-home-track::-webkit-scrollbar { display:none; }
+.horizontal-home-track.is-dragging { cursor:grabbing; scroll-behavior:auto !important; }
 
 .horizontal-home-slide {
-  display: block !important;
-  position: relative !important;
-  flex: 0 0 100vw !important;
-  width: 100vw !important;
-  min-width: 100vw !important;
-  max-width: 100vw !important;
-  height: 100vh !important;
-  min-height: 100vh !important;
-  max-height: 100vh !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
-  scroll-behavior: auto !important;
+  position:relative !important;
+  flex:0 0 100vw !important;
+  width:100vw !important;
+  height:100vh !important;
+  min-height:100vh !important;
+  max-height:100vh !important;
+  margin:0 !important;
+  padding:0 !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+  scroll-snap-align:start !important;
+  scroll-snap-stop:always !important;
+  isolation:isolate;
 }
-
-.horizontal-home-slide > * {
-  box-sizing: border-box;
+.horizontal-home-slide::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,.34) 55%,rgba(0,0,0,.52));
 }
+.horizontal-home-slide .home-section-bg { position:absolute !important; inset:0 !important; z-index:0 !important; min-height:100% !important; }
+.horizontal-home-slide .home-section-bg img { width:100% !important; height:100% !important; object-fit:cover !important; }
+.horizontal-home-slide > .container,
+.horizontal-home-slide > .container-fluid,
+.horizontal-home-slide .container { position:relative; z-index:3; width:100%; max-width:1280px; min-height:100vh; display:flex; align-items:center; box-sizing:border-box; padding:6rem 4rem 4rem; }
+.horizontal-home-slide .section-heading { color:#fff; }
+.horizontal-home-slide h1,
+.horizontal-home-slide h2,
+.horizontal-home-slide h3,
+.horizontal-home-slide p,
+.horizontal-home-slide .lead,
+.horizontal-home-slide .article-style,
+.horizontal-home-slide .section-subheading { color:#fff !important; text-shadow:0 2px 18px rgba(0,0,0,.5); }
+.horizontal-home-slide h1 { font-size:clamp(2.4rem,5vw,5.8rem); line-height:1.08; font-weight:700; letter-spacing:-.03em; }
+.horizontal-home-slide h2 { font-size:clamp(1.8rem,3vw,3.4rem); }
+.horizontal-home-slide p { font-size:clamp(1rem,1.35vw,1.25rem); line-height:1.8; max-width:850px; }
 
-.horizontal-home-slide .container,
-.horizontal-home-slide .container-fluid {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 1200px;
-  padding-top: 6rem;
-  padding-bottom: 4rem;
-}
-
-.horizontal-home-slide .home-section-bg {
-  min-height: 100%;
-}
-
-/* 顶部导航固定在所有横向页面上方 */
+/* 顶部透明科技感导航 */
 .horizontal-home .page-header {
-  position: fixed !important;
-  inset: 0 0 auto 0 !important;
-  z-index: 10000 !important;
-  width: 100vw !important;
+  position:fixed !important;
+  top:0 !important; left:0 !important; right:0 !important;
+  z-index:10000 !important;
+  width:100vw !important;
+  background:rgba(10,15,25,.20) !important;
+  backdrop-filter:blur(12px) saturate(140%);
+  -webkit-backdrop-filter:blur(12px) saturate(140%);
+  border-bottom:1px solid rgba(255,255,255,.14) !important;
 }
+.horizontal-home .page-header a,
+.horizontal-home .page-header .navbar-brand,
+.horizontal-home .page-header .nav-link { color:#fff !important; text-shadow:0 1px 8px rgba(0,0,0,.4); }
+.horizontal-home .page-header .navbar-brand { font-weight:700; }
 
-.horizontal-home-controls {
-  position: fixed;
-  left: 50%;
-  bottom: 20px;
-  z-index: 10010;
-  display: flex;
-  gap: 8px;
-  transform: translateX(-50%);
-}
+.horizontal-home-controls { position:fixed; left:50%; bottom:24px; z-index:10010; display:flex; gap:9px; transform:translateX(-50%); padding:8px 12px; border:1px solid rgba(255,255,255,.16); border-radius:999px; background:rgba(0,0,0,.22); backdrop-filter:blur(10px); }
+.horizontal-home-dot { width:8px; height:8px; padding:0; border:0; border-radius:50%; background:rgba(255,255,255,.5); cursor:pointer; transition:all .25s ease; }
+.horizontal-home-dot.is-active { width:28px; border-radius:99px; background:#fff; }
+.horizontal-home-arrow { position:fixed; top:50%; z-index:10010; width:50px; height:50px; border:1px solid rgba(255,255,255,.28); border-radius:50%; background:rgba(0,0,0,.25); color:#fff; font-size:30px; line-height:1; cursor:pointer; transform:translateY(-50%); backdrop-filter:blur(10px); }
+.horizontal-home-arrow:hover { background:rgba(0,0,0,.55); transform:translateY(-50%) scale(1.06); }
+.horizontal-home-arrow--previous { left:24px; }
+.horizontal-home-arrow--next { right:24px; }
 
-.horizontal-home-dot {
-  width: 8px;
-  height: 8px;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(255,255,255,.55);
-  cursor: pointer;
-  transition: width .25s ease, background .25s ease;
-}
-
-.horizontal-home-dot.is-active {
-  width: 28px;
-  background: #fff;
-}
-
-.horizontal-home-arrow {
-  position: fixed;
-  top: 50%;
-  z-index: 10010;
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgba(255,255,255,.35);
-  border-radius: 50%;
-  background: rgba(0,0,0,.28);
-  color: #fff;
-  font-size: 28px;
-  line-height: 1;
-  cursor: pointer;
-  transform: translateY(-50%);
-  backdrop-filter: blur(8px);
-}
-
-.horizontal-home-arrow:hover {
-  background: rgba(0,0,0,.55);
-}
-
-.horizontal-home-arrow--previous { left: 20px; }
-.horizontal-home-arrow--next { right: 20px; }
-.horizontal-home-arrow:disabled {
-  cursor: default;
-  opacity: .25;
-}
-
-@media (max-width: 768px) {
-  .horizontal-home-arrow {
-    display: none;
-  }
-
-  .horizontal-home-controls {
-    bottom: 14px;
-  }
-
-  .horizontal-home-slide .container,
-  .horizontal-home-slide .container-fluid {
-    padding: 5rem 1.25rem 3rem;
-  }
+@media (max-width:768px) {
+  .horizontal-home-slide { touch-action:pan-x; }
+  .horizontal-home-slide > .container,
+  .horizontal-home-slide > .container-fluid,
+  .horizontal-home-slide .container { padding:5.5rem 1.35rem 3.5rem; align-items:center; }
+  .horizontal-home-slide h1 { font-size:clamp(2rem,10vw,3.3rem); }
+  .horizontal-home-slide h2 { font-size:clamp(1.55rem,7vw,2.4rem); }
+  .horizontal-home-slide p { font-size:1rem; line-height:1.7; }
+  .horizontal-home-arrow { display:none; }
+  .horizontal-home-controls { bottom:14px; }
+  .horizontal-home .page-header { background:rgba(8,12,20,.38) !important; }
 }
