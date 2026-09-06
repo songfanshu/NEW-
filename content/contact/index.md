@@ -1,3 +1,4 @@
+---
 title: 联系我们
 date: 2022-10-24
 type: landing
@@ -11,10 +12,10 @@ sections:
       email: test@example.org
       phone: ''
       address:
-        street: 实验室科研楼
-        city: ''
-        region: ''
-        postcode: ''
+        street: 深圳市光明区新湖街道公常路66号中山大学深圳校区
+        city: 深圳市
+        region: 广东省
+        postcode: '518107'
         country: 中国
         country_code: CN
       directions: 欢迎提前联系，我们将为您提供详细到访指引。
@@ -28,6 +29,15 @@ sections:
           id:
         netlify:
           captcha: false
+    design:
+      columns: '1'
+
+  - block: markdown
+    content:
+      title: 中山大学深圳校区地图
+      subtitle: ''
+      text: |
+        {{< campus-map >}}
     design:
       columns: '1'
 
