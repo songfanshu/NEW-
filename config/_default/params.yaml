@@ -93,5 +93,5 @@ extensions:
     enable: true
 
 publications:
-  date_format: January 2006
+  date_format: '2006年1月'
   citation_style: apa
