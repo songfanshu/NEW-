@@ -42,7 +42,7 @@ footer:
 locale:
   date_format: '2006年1月2日'
   time_format: '15:04'
-  address_format: zh-cn
+  address_format: en-us
 
 features:
   syntax_highlighter:
