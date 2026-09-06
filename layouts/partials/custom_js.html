@@ -1,73 +1,144 @@
 <script>
 (function () {
   'use strict';
-  function init() {
+  function initHorizontalHome() {
     if (window.__HORIZONTAL_HOME_READY__) return;
     var main = document.querySelector('main');
     if (!main) return;
-    var slides = Array.prototype.slice.call(main.querySelectorAll(':scope > .home-section'));
+
+    var candidates = Array.prototype.slice.call(main.querySelectorAll('.home-section'));
+    var slides = candidates.filter(function (el) {
+      return el.parentElement === main;
+    });
     if (slides.length < 2) return;
+
     window.__HORIZONTAL_HOME_READY__ = true;
+    document.documentElement.classList.add('horizontal-home');
+    document.body.classList.add('horizontal-home');
 
     var track = document.createElement('div');
     track.className = 'horizontal-home-track';
+    track.setAttribute('role', 'region');
+    track.setAttribute('aria-label', '首页横向内容');
+
     slides.forEach(function (slide) {
       slide.classList.add('horizontal-home-slide');
       track.appendChild(slide);
     });
     main.appendChild(track);
-    document.documentElement.classList.add('horizontal-home');
-    document.body.classList.add('horizontal-home');
 
-    var dots = document.createElement('div');
-    dots.className = 'horizontal-home-controls';
-    dots.setAttribute('aria-label', '首页分页');
+    var controls = document.createElement('div');
+    controls.className = 'horizontal-home-controls';
+    controls.setAttribute('aria-label', '首页分页');
+
+    function goTo(index) {
+      index = Math.max(0, Math.min(slides.length - 1, index));
+      track.scrollTo({ left: index * track.clientWidth, behavior: 'smooth' });
+    }
+
     slides.forEach(function (_, i) {
       var dot = document.createElement('button');
-      dot.type = 'button'; dot.className = 'horizontal-home-dot';
+      dot.type = 'button';
+      dot.className = 'horizontal-home-dot';
       dot.setAttribute('aria-label', '第 ' + (i + 1) + ' 页');
-      dot.onclick = function () { track.scrollTo({left: i * track.clientWidth, behavior: 'smooth'}); };
-      dots.appendChild(dot);
+      dot.addEventListener('click', function () { goTo(i); });
+      controls.appendChild(dot);
     });
-    document.body.appendChild(dots);
+    document.body.appendChild(controls);
 
-    function button(cls, label, dir) {
-      var b = document.createElement('button');
-      b.type='button'; b.className='horizontal-home-arrow ' + cls; b.innerHTML=dir > 0 ? '&#8250;' : '&#8249;'; b.setAttribute('aria-label',label);
-      b.onclick=function(){ track.scrollBy({left: dir * track.clientWidth, behavior:'smooth'}); };
-      document.body.appendChild(b); return b;
+    function addArrow(cls, label, direction) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'horizontal-home-arrow ' + cls;
+      button.innerHTML = direction > 0 ? '&#8250;' : '&#8249;';
+      button.setAttribute('aria-label', label);
+      button.addEventListener('click', function () {
+        var current = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+        goTo(current + direction);
+      });
+      document.body.appendChild(button);
     }
-    button('horizontal-home-arrow--previous','上一页',-1);
-    button('horizontal-home-arrow--next','下一页',1);
+    addArrow('horizontal-home-arrow--previous', '上一页', -1);
+    addArrow('horizontal-home-arrow--next', '下一页', 1);
 
-    function update() {
-      var index = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
-      dots.querySelectorAll('.horizontal-home-dot').forEach(function(d,i){ d.classList.toggle('is-active',i===index); });
+    function updatePagination() {
+      var width = Math.max(1, track.clientWidth);
+      var index = Math.round(track.scrollLeft / width);
+      controls.querySelectorAll('.horizontal-home-dot').forEach(function (dot, i) {
+        dot.classList.toggle('is-active', i === index);
+      });
     }
-    track.addEventListener('scroll', function(){ requestAnimationFrame(update); }, {passive:true});
-    window.addEventListener('keydown', function(e){
-      var t=document.activeElement && document.activeElement.tagName;
-      if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT') return;
-      if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();track.scrollBy({left:track.clientWidth,behavior:'smooth'});}
-      if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();track.scrollBy({left:-track.clientWidth,behavior:'smooth'});}
-      if(e.key==='Home'){e.preventDefault();track.scrollTo({left:0,behavior:'smooth'});}
-      if(e.key==='End'){e.preventDefault();track.scrollTo({left:track.scrollWidth,behavior:'smooth'});}
+
+    track.addEventListener('scroll', function () {
+      window.requestAnimationFrame(updatePagination);
+    }, { passive: true });
+
+    document.addEventListener('keydown', function (e) {
+      var tag = document.activeElement && document.activeElement.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); var r = Math.round(track.scrollLeft / track.clientWidth); goTo(r + 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); var l = Math.round(track.scrollLeft / track.clientWidth); goTo(l - 1); }
+      if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+      if (e.key === 'End') { e.preventDefault(); goTo(slides.length - 1); }
     });
-    track.addEventListener('wheel',function(e){
-      if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();track.scrollBy({left:e.deltaY,behavior:'auto'});}
-    },{passive:false});
 
-    var dragging=false,startX=0,startScroll=0;
-    track.addEventListener('mousedown',function(e){ dragging=true; startX=e.pageX; startScroll=track.scrollLeft; track.classList.add('is-dragging'); });
-    window.addEventListener('mousemove',function(e){if(dragging) track.scrollLeft=startScroll-(e.pageX-startX);});
-    window.addEventListener('mouseup',function(){dragging=false;track.classList.remove('is-dragging');});
-    track.addEventListener('mouseleave',function(){if(dragging){dragging=false;track.classList.remove('is-dragging');}});
-    window.addEventListener('resize',update);
-    update();
+    track.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
+        e.preventDefault();
+        track.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
+
+    var pointerDown = false;
+    var startX = 0;
+    var startScroll = 0;
+    var moved = false;
+
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      pointerDown = true;
+      moved = false;
+      startX = e.clientX;
+      startScroll = track.scrollLeft;
+      track.classList.add('is-dragging');
+      try { track.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+    track.addEventListener('pointermove', function (e) {
+      if (!pointerDown) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      track.scrollLeft = startScroll - dx;
+    });
+    function endPointer(e) {
+      if (!pointerDown) return;
+      pointerDown = false;
+      track.classList.remove('is-dragging');
+      var dx = e.clientX - startX;
+      if (moved && Math.abs(dx) > 40) {
+        var current = Math.round(startScroll / Math.max(1, track.clientWidth));
+        goTo(current + (dx < 0 ? 1 : -1));
+      } else {
+        var nearest = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+        goTo(nearest);
+      }
+    }
+    track.addEventListener('pointerup', endPointer);
+    track.addEventListener('pointercancel', endPointer);
+
+    window.addEventListener('resize', function () {
+      var current = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+      window.requestAnimationFrame(function () { goTo(current); });
+    });
+
+    updatePagination();
   }
-  function boot(){init();}
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
-  window.addEventListener('load',boot);
-  setTimeout(boot,500); setTimeout(boot,1500);
+
+  function boot() { initHorizontalHome(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+  window.addEventListener('load', boot);
+  setTimeout(boot, 300);
+  setTimeout(boot, 1000);
+  setTimeout(boot, 2000);
 })();
 </script>
