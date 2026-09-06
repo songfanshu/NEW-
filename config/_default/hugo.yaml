@@ -1,4 +1,4 @@
-title: 实验室科研团队
+title: 先进集成电路材料与类脑芯片课题组
 baseURL: 'https://example.com/'
 defaultContentLanguage: zh
 hasCJKLanguage: true
@@ -42,7 +42,7 @@ related:
       weight: 100
     - name: categories
       weight: 70
-security:
-  _merge: deep
 sitemap:
+  _merge: deep
+security:
   _merge: deep
