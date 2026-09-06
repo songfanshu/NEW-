@@ -7,12 +7,12 @@ sections:
     content:
       title: 我们的团队
       user_groups:
-        - Principal Investigators
-        - Researchers
-        - Grad Students
-        - Administration
-        - Visitors
-        - Alumni
+        - 实验室负责人
+        - 科研人员
+        - 研究生
+        - 行政人员
+        - 访问学者
+        - 校友
       sort_by: Params.last_name
       sort_ascending: true
     design:
