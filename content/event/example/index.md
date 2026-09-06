@@ -1,63 +1,37 @@
 ---
-title: Example Event
+title: 学术交流活动
 
-event: Wowchemy Conference
-event_url: https://example.org
+event: 实验室学术交流会
+event_url: ''
 
-location: Wowchemy HQ
+location: 实验室会议室
 address:
-  street: 450 Serra Mall
-  city: Stanford
-  region: CA
-  postcode: '94305'
-  country: United States
+  street: 实验室科研楼
+  city: 实验室
+  region: ''
+  postcode: ''
+  country: 中国
 
-summary: An example event.
-abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellusac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam.'
+summary: 实验室学术交流与科研分享活动。
+abstract: '围绕先进材料、光电器件、智能感知等研究方向开展学术交流，分享最新研究进展，促进团队成员之间的科研合作。'
 
-# Talk start and end times.
-#   End time can optionally be hidden by prefixing the line with `#`.
 date: '2030-06-01T13:00:00Z'
 date_end: '2030-06-01T15:00:00Z'
 all_day: false
-
-# Schedule page publish date (NOT talk date).
 publishDate: '2017-01-01T00:00:00Z'
-
 authors: []
 tags: []
-
-# Is this a featured talk? (true/false)
 featured: false
-
 image:
-  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/bzdhc5b3Bxs)'
+  caption: '活动图片'
   focal_point: Right
 
 url_code: ''
 url_pdf: ''
 url_slides: ''
 url_video: ''
-
-# Markdown Slides (optional).
-#   Associate this talk with Markdown slides.
-#   Simply enter your slide deck's filename without extension.
-#   E.g. `slides = "example-slides"` references `content/slides/example-slides.md`.
-#   Otherwise, set `slides = ""`.
 slides:
-
-# Projects (optional).
-#   Associate this post with one or more of your projects.
-#   Simply enter your project's folder or file name without extension.
-#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
-#   Otherwise, set `projects = []`.
 projects:
 ---
 
-Slides can be added in a few ways:
-
-- **Create** slides using Wowchemy's [_Slides_](https://docs.hugoblox.com/managing-content/#create-slides) feature and link using `slides` parameter in the front matter of the talk file
-- **Upload** an existing slide deck to `static/` and link using `url_slides` parameter in the front matter of the talk file
-- **Embed** your slides (e.g. Google Slides) or presentation video on this page using [shortcodes](https://docs.hugoblox.com/writing-markdown-latex/).
-
-Further event details, including page elements such as image galleries, can be added to the body of this page.
+本次活动用于展示实验室学术交流页面。团队成员可在此分享科研进展、专题报告、学术讨论及合作交流信息。
