@@ -1,25 +1,16 @@
-# SITE SETUP
-# Guide: https://docs.hugoblox.com/tutorial/
-# Documentation: https://docs.hugoblox.com/
-# This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
-
-# Appearance
-
 appearance:
   theme_day: minimal
   theme_night:
   font: native
   font_size: L
 
-# SEO
-
 marketing:
   seo:
     site_type: Organization
     local_business_type: ''
-    org_name: ''
-    description: 'A highly-customizable Hugo research group theme powered by Wowchemy website builder.'
-    twitter: 'GetResearchDev'
+    org_name: 实验室科研团队
+    description: 实验室科研团队，开展先进材料、光电器件与智能感知等方向的科研与人才培养。
+    twitter: ''
   analytics:
     google_analytics: ''
     baidu_tongji: ''
@@ -28,8 +19,6 @@ marketing:
   verification:
     google: ''
     baidu: ''
-
-# Site header
 
 header:
   navbar:
@@ -41,25 +30,19 @@ header:
     show_search: true
     highlight_active_link: false
 
-# Site footer
-
 footer:
   copyright:
-    notice: '© {year} Me. This work is licensed under {license}'
+    notice: '© {year} 实验室科研团队。保留所有权利。'
     license:
-      enable: true
+      enable: false
       allow_derivatives: false
       share_alike: true
       allow_commercial: false
 
-# Localization
-
 locale:
-  date_format: 'Jan 2, 2006'
-  time_format: '3:04 PM'
-  address_format: en-us
-
-# Site features
+  date_format: '2006年1月2日'
+  time_format: '15:04'
+  address_format: zh-cn
 
 features:
   syntax_highlighter:
@@ -72,7 +55,7 @@ features:
   privacy_pack:
     enable: false
   repository:
-    url: 'https://github.com/<username>/<repository>'
+    url: 'https://github.com/songfanshu/NEW-'
     content_dir: content
     branch: main
   avatar:
@@ -102,16 +85,12 @@ features:
     api_key: ''
     zoom: 15
 
-# Extensions
-
 extensions:
   decap_cms:
     branch: main
     local_backend: false
   academicons:
     enable: true
-
-# Citation style
 
 publications:
   date_format: January 2006
