@@ -2,29 +2,29 @@
   .campus-map-wrap { margin: 1.5rem 0 0; }
   .campus-map-title { margin-bottom: .4rem; font-size: 1.35rem; font-weight: 700; }
   .campus-map-subtitle { margin-bottom: 1rem; color: #666; }
-  #sysu-shenzhen-map { width: 100%; height: 560px; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.12); z-index: 1; }
+  .campus-map-frame { width: 100%; height: 560px; border: 0; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.12); display: block; }
   .campus-coords { margin-top: .9rem; padding: .9rem 1rem; border-radius: 10px; background: rgba(0,0,0,.035); font-size: .92rem; line-height: 1.7; }
-  .campus-legend { background: rgba(255,255,255,.96); padding: 8px 10px; border-radius: 8px; box-shadow: 0 1px 5px rgba(0,0,0,.2); line-height: 1.55; }
-  .campus-legend .dot { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; background:#b21f2d; }
-  @media (max-width: 768px) { #sysu-shenzhen-map { height: 430px; } }
+  .campus-landmarks { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 1rem; }
+  .campus-landmark { padding: 14px; border-radius: 10px; background: rgba(0,0,0,.035); }
+  .campus-landmark strong { display:block; margin-bottom:5px; }
+  .campus-landmark span { font-family: monospace; font-size:.86rem; color:#666; }
+  @media (max-width: 900px) { .campus-landmarks { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width: 768px) { .campus-map-frame { height: 430px; } .campus-landmarks { grid-template-columns: 1fr; } }
 </style>
 <div class="campus-map-wrap">
   <div class="campus-map-title">中山大学深圳校区 · 材料学院可视化地图</div>
-  <div class="campus-map-subtitle">支持缩放、拖动和点击标记查看建筑名称、纬度与经度。</div>
-  <div id="sysu-shenzhen-map" aria-label="中山大学深圳校区材料学院可视化地图"></div>
-  <div class="campus-coords"><strong>校区参考坐标：</strong>22.803350°N，113.950190°E　｜　<strong>地址：</strong>深圳市光明区新湖街道公常路66号<br>点击地图标记可查看对应位置的六位小数经纬度。建筑标记用于网站导航展示，部分建筑坐标为参考定位值，实际到访请以学校最新校园地图和现场道路为准。</div>
+  <div class="campus-map-subtitle">地图支持缩放、拖动，并保留校区及主要建筑定位信息。</div>
+  <iframe class="campus-map-frame" title="中山大学深圳校区地图" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=113.9410%2C22.7920%2C113.9590%2C22.8110&layer=mapnik&marker=22.803350%2C113.950190"></iframe>
+  <div class="campus-coords"><strong>校区参考坐标：</strong>22.803350°N，113.950190°E　｜　<strong>地址：</strong>深圳市光明区新湖街道公常路66号<br>以下标记坐标用于网站导航展示，部分建筑为参考定位值；实际到访请以学校最新校园地图和现场道路为准。</div>
+  <div class="campus-landmarks">
+    <div class="campus-landmark"><strong>中山大学深圳校区</strong><span>22.803350°N, 113.950190°E</span></div>
+    <div class="campus-landmark"><strong>中山大学正门 / 地铁站方向</strong><span>22.800721°N, 113.953099°E</span></div>
+    <div class="campus-landmark"><strong>中山大学深圳校区西门</strong><span>22.796724°N, 113.946179°E</span></div>
+    <div class="campus-landmark"><strong>深圳校区图书馆</strong><span>22.804700°N, 113.951100°E</span></div>
+    <div class="campus-landmark"><strong>深圳校区体育馆</strong><span>22.805550°N, 113.948950°E</span></div>
+    <div class="campus-landmark"><strong>西教学楼</strong><span>22.801850°N, 113.946650°E</span></div>
+    <div class="campus-landmark"><strong>工学园</strong><span>22.799950°N, 113.949550°E</span></div>
+    <div class="campus-landmark"><strong>逸仙广场</strong><span>22.802850°N, 113.951650°E</span></div>
+    <div class="campus-landmark"><strong>中山堂</strong><span>22.804250°N, 113.947850°E</span></div>
+  </div>
 </div>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-(function(){'use strict';function init(){var el=document.getElementById('sysu-shenzhen-map');if(!el||el.dataset.ready==='1'||typeof window.L==='undefined')return;el.dataset.ready='1';var map=window.L.map(el,{scrollWheelZoom:true,zoomControl:true}).setView([22.80335,113.95019],16);window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:20,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);var landmarks=[
-{name:'中山大学深圳校区',lat:22.803350,lng:113.950190,desc:'校区中心参考点'},
-{name:'中山大学正门 / 地铁站方向',lat:22.800721,lng:113.953099,desc:'公常路66号附近，校区东南侧入口参考位置'},
-{name:'中山大学深圳校区西门',lat:22.796724,lng:113.946179,desc:'西门参考位置'},
-{name:'深圳校区图书馆',lat:22.804700,lng:113.951100,desc:'校园标志性公共建筑，参考位置'},
-{name:'深圳校区体育馆',lat:22.805550,lng:113.948950,desc:'校园大型体育设施，参考位置'},
-{name:'西教学楼',lat:22.801850,lng:113.946650,desc:'西侧教学区参考位置'},
-{name:'工学园',lat:22.799950,lng:113.949550,desc:'工学园科研教学区域参考位置'},
-{name:'逸仙广场',lat:22.802850,lng:113.951650,desc:'校园公共活动区域参考位置'},
-{name:'中山堂',lat:22.804250,lng:113.947850,desc:'校园标志性建筑参考位置'}];landmarks.forEach(function(p){window.L.marker([p.lat,p.lng]).addTo(map).bindPopup('<strong>'+p.name+'</strong><br>'+p.desc+'<br><span style="font-family:monospace">纬度：'+p.lat.toFixed(6)+'°<br>经度：'+p.lng.toFixed(6)+'°</span>');});var legend=window.L.control({position:'topright'});legend.onAdd=function(){var div=window.L.DomUtil.create('div','campus-legend');div.innerHTML='<span class="dot"></span>校园标志性建筑';return div;};legend.addTo(map);setTimeout(function(){map.invalidateSize();},300);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();window.addEventListener('load',init);setTimeout(init,500);})();
-</script>
