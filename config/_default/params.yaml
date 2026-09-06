@@ -8,8 +8,8 @@ marketing:
   seo:
     site_type: Organization
     local_business_type: ''
-    org_name: 实验室科研团队
-    description: 实验室科研团队，开展先进材料、光电器件与智能感知等方向的科研与人才培养。
+    org_name: 先进集成电路材料与类脑芯片课题组
+    description: 先进集成电路材料与类脑芯片课题组，开展先进材料、光电器件、类脑芯片与智能感知等方向的科研与人才培养。
     twitter: ''
   analytics:
     google_analytics: ''
@@ -32,7 +32,7 @@ header:
 
 footer:
   copyright:
-    notice: '© {year} 实验室科研团队。保留所有权利。'
+    notice: '© {year} 先进集成电路材料与类脑芯片课题组。保留所有权利。'
     license:
       enable: false
       allow_derivatives: false
