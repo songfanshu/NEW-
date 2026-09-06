@@ -1,11 +1,5 @@
----
-title: Recent & Upcoming Events
-
-# Listing view
+title: 学术活动
 view: compact
-
-# Optional header image (relative to `assets/media/` folder).
 banner:
   caption: ''
   image: ''
----
