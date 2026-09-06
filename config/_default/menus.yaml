@@ -1,6 +1,6 @@
 main:
   - name: 首页
-    url: tour
+    url: /
     weight: 10
   - name: 课题组动态
     url: post
