@@ -2,6 +2,7 @@
 title: 联系我们
 date: 2022-10-24
 type: landing
+---
 
 sections:
   - block: contact
@@ -43,9 +44,9 @@ sections:
 
   - block: markdown
     content:
-      title:
+      title: ''
       subtitle: ''
-      text:
+      text: ''
     design:
       columns: '1'
       background:
