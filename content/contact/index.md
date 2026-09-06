@@ -1,15 +1,13 @@
----
-title: Contact
+title: 联系我们
 date: 2022-10-24
-
 type: landing
 
 sections:
   - block: contact
     content:
-      title: Contact
-      text: |-
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus augue non tempor egestas. Proin nisl nunc, dignissim in accumsan dapibus, auctor ullamcorper neque. Quisque at elit felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean eget elementum odio. Cras interdum eget risus sit amet aliquet. In volutpat, nisl ut fringilla dignissim, arcu nisl suscipit ante, at accumsan sapien nisl eu eros.
+      title: 联系我们
+      text: |
+        欢迎与我们交流科研合作、人才培养及学术交流等事宜。
       email: test@example.org
       phone: 888 888 88 88
       address:
@@ -22,27 +20,17 @@ sections:
       coordinates:
         latitude: '37.4275'
         longitude: '-122.1697'
-      directions: Enter Building 1 and take the stairs to Office 200 on Floor 2
+      directions: 进入大楼后沿楼梯前往二楼办公室
       office_hours:
-        - 'Monday 10:00 to 13:00'
-        - 'Wednesday 09:00 to 10:00'
+        - '周一 10:00 至 13:00'
+        - '周三 09:00 至 10:00'
       appointment_url: 'https://calendly.com'
-      #contact_links:
-      #  - icon: comments
-      #    icon_pack: fas
-      #    name: Discuss on Forum
-      #    link: 'https://discourse.gohugo.io'
-    
-      # Automatically link email and phone or display as text?
       autolink: true
-    
-      # Email form provider
       form:
         provider: netlify
         formspree:
           id:
         netlify:
-          # Enable CAPTCHA challenge to reduce spam?
           captcha: false
     design:
       columns: '1'
@@ -55,7 +43,7 @@ sections:
     design:
       columns: '1'
       background:
-        image: 
+        image:
           filename: contact.jpg
           filters:
             brightness: 1
@@ -66,4 +54,3 @@ sections:
       spacing:
         padding: ['20px', '0', '20px', '0']
       css_class: fullscreen
----
