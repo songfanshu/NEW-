@@ -1,0 +1,155 @@
+(function () {
+  'use strict';
+
+  function initialiseHomepage() {
+    if (window.__HORIZONTAL_HOME_READY__) return;
+
+    var main = document.querySelector('main');
+    if (!main) return;
+
+    var slides = Array.prototype.slice.call(main.querySelectorAll('.home-section'))
+      .filter(function (section) {
+        return !section.parentElement.closest('.home-section');
+      });
+
+    if (slides.length < 2) return;
+
+    window.__HORIZONTAL_HOME_READY__ = true;
+
+    var track = document.createElement('div');
+    track.className = 'horizontal-home-track';
+    main.insertBefore(track, slides[0]);
+
+    slides.forEach(function (slide) {
+      slide.classList.add('horizontal-home-slide');
+      track.appendChild(slide);
+    });
+
+    document.documentElement.classList.add('horizontal-home');
+    document.body.classList.add('horizontal-home');
+
+    var activeIndex = 0;
+    var locked = false;
+    var touchStartX = 0;
+    var touchStartY = 0;
+
+    var controls = document.createElement('div');
+    controls.className = 'horizontal-home-controls';
+    controls.setAttribute('aria-label', 'Homepage sections');
+
+    var previous = document.createElement('button');
+    previous.type = 'button';
+    previous.className = 'horizontal-home-arrow horizontal-home-arrow--previous';
+    previous.innerHTML = '&#8249;';
+    previous.setAttribute('aria-label', 'Previous section');
+
+    var next = document.createElement('button');
+    next.type = 'button';
+    next.className = 'horizontal-home-arrow horizontal-home-arrow--next';
+    next.innerHTML = '&#8250;';
+    next.setAttribute('aria-label', 'Next section');
+
+    function render(immediate) {
+      track.style.width = (slides.length * 100) + 'vw';
+      track.style.transitionDuration = immediate ? '0ms' : '700ms';
+      track.style.transform = 'translate3d(-' + (activeIndex * 100) + 'vw, 0, 0)';
+
+      controls.querySelectorAll('.horizontal-home-dot').forEach(function (dot, index) {
+        var isActive = index === activeIndex;
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-current', isActive ? 'page' : 'false');
+      });
+
+      previous.disabled = activeIndex === 0;
+      next.disabled = activeIndex === slides.length - 1;
+    }
+
+    function goTo(index, immediate) {
+      activeIndex = Math.max(0, Math.min(index, slides.length - 1));
+      render(immediate);
+    }
+
+    function step(direction) {
+      if (locked) return;
+
+      var target = Math.max(0, Math.min(activeIndex + direction, slides.length - 1));
+      if (target === activeIndex) return;
+
+      locked = true;
+      goTo(target, false);
+      window.setTimeout(function () { locked = false; }, 760);
+    }
+
+    slides.forEach(function (_, index) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'horizontal-home-dot';
+      dot.setAttribute('aria-label', 'Go to section ' + (index + 1));
+      dot.addEventListener('click', function () { goTo(index, false); });
+      controls.appendChild(dot);
+    });
+
+    previous.addEventListener('click', function () { step(-1); });
+    next.addEventListener('click', function () { step(1); });
+    document.body.appendChild(controls);
+    document.body.appendChild(previous);
+    document.body.appendChild(next);
+
+    window.addEventListener('wheel', function (event) {
+      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX) || Math.abs(event.deltaY) < 12) return;
+      event.preventDefault();
+      step(event.deltaY > 0 ? 1 : -1);
+    }, { passive: false });
+
+    window.addEventListener('keydown', function (event) {
+      var tagName = document.activeElement && document.activeElement.tagName;
+      if (tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT') return;
+
+      if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
+        event.preventDefault();
+        step(1);
+      } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+        event.preventDefault();
+        step(-1);
+      } else if (event.key === 'Home') {
+        event.preventDefault();
+        goTo(0, false);
+      } else if (event.key === 'End') {
+        event.preventDefault();
+        goTo(slides.length - 1, false);
+      }
+    });
+
+    window.addEventListener('touchstart', function (event) {
+      if (!event.touches.length) return;
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', function (event) {
+      if (!event.changedTouches.length) return;
+      var deltaX = event.changedTouches[0].clientX - touchStartX;
+      var deltaY = event.changedTouches[0].clientY - touchStartY;
+
+      if (Math.abs(deltaX) >= 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+        step(deltaX < 0 ? 1 : -1);
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', function () { render(true); });
+    render(true);
+  }
+
+  function boot() {
+    initialiseHomepage();
+    window.setTimeout(initialiseHomepage, 300);
+    window.setTimeout(initialiseHomepage, 1200);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  window.addEventListener('load', boot);
+})();
